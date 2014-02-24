@@ -25,6 +25,20 @@
 @shared = ["points/2d_points.so","double_linked_list/double_linked_list.so", "convex_hull/convex_hull.so"]
 @lib_dir = "lib/"
 
+# Detecta que sistema operativo utilizas, solo soporta: 
+#          - MACOSX
+#          - Linux
+
+host_os = RbConfig::CONFIG['host_os']
+
+if not((/linux/ =~ host_os).nil?)
+  @so = "linux"
+elsif not((/darwin/ =~ host_os).nil?)
+  @so = "mac"
+else
+  puts "Sistema operativo no soportado"
+  exit(0)
+end
 args = ARGV.clone
 actions = ["compile","compile_c", "test", "clean"]
 if (not(args.any?) or args.keep_if{|x| not(actions.include?(x))}.any?) then
@@ -49,7 +63,7 @@ end
 def compile
   puts "Compilando archivos fuentes:"
   @objs.each do |obj|
-    command = "#{@cc} -c -o #{obj} #{obj[0..-2] + "c"} #{@cflags}"
+    command = "#{@cc} -fpic -c -o #{obj} #{obj[0..-2] + "c"} #{@cflags}"
     puts "\t"+ command
     exit (0) if not((system(command)))
   end
@@ -64,8 +78,13 @@ def compile
       string += "-l#{lib[3...-3]} "
     }
     
-    command = "#{@cc} -shared -o lib/lib#{library} #{obj[0..-3] + "o"}" +
-              " -L#{@lib_dir} #{libs}"
+    if (@so == "linux")
+      command = "#{@cc} -shared -Wl,-soname,lib#{library}.so.1 -o lib/lib#{library} #{obj[0..-3] + "o"}" +
+                " -L#{@lib_dir} #{libs}"
+    elsif (@so == "mac")
+      command = "#{@cc} -shared -o lib/lib#{library} #{obj[0..-3] + "o"}" +
+                " -L#{@lib_dir} #{libs}" 
+    end
     puts "\t" + command
     puts "No compilo de forma correcta" if not((system(command)))
   end
