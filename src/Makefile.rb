@@ -69,6 +69,7 @@ def compile
   end
   
   puts "Convirtiendo a bibliotecas dinamicas"
+  system("mkdir lib")
   @shared.each do |obj|
     library = obj.split('/').last
     compiled_libraries = `ls #{@lib_dir}`.split(" ")
