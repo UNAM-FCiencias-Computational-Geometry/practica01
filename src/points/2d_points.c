@@ -2,10 +2,12 @@
  * Author: José Emiliano Cabrera Blancas (jemiliano.cabrera@gmail.com)
  */
 
+#include "double_linked_list/double_linked_list.h"
 #include "points/2d_points.h"
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 struct point* init_point_empty()
 {
@@ -63,4 +65,44 @@ int curve_orientation(struct point* a, struct point* b, struct point* c)
 			   a->x,a->y,b->x,b->y,c->x,c->y);
 		exit(EXIT_FAILURE);
 	}
+}
+
+int menor(struct point* p1, struct point* p2){
+	if(p1->x < p2->x){
+		return TRUE;
+	}else if(p1->x > p2->x){
+		return FALSE;
+	}else if(p1->y < p2->y){
+		return TRUE;
+	}else{
+		return FALSE;
+	}
+}
+
+float distancia(struct point* p1, struct point* p2){
+	
+	return sqrt(pow((float)(p2->x - p1->x), 2.0) + pow((float)(p2->y - p1->y), 2.0));
+}
+
+struct double_linked_list* points_strictly_right(struct point* p1, struct point* p2, struct double_linked_list* list){
+	
+	struct double_linked_list* l = init_double_linked_list();
+	struct list_item* tmp = list->head;
+
+	while(tmp != NULL){
+		if(curve_orientation(p1, tmp->point, p2) == 0){
+			push_back(l,tmp->point);
+			tmp = tmp->right;
+		}else{
+			tmp = tmp->right;
+		}
+	}
+	
+	free(list);
+	
+	return l;
+}
+
+void print_point(struct point* p1){
+	printf("(%d, %d)\n",p1->x,p1->y);
 }

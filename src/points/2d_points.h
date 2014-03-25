@@ -11,6 +11,9 @@
 #define LEFT 0
 #define RIGHT 1
 
+#define TRUE 1
+#define FALSE 0
+
 struct point {
 	int x;
 	int y;
@@ -36,4 +39,14 @@ struct point* create_copy_point(struct point*);
  */
 int curve_orientation(struct point*, struct point*,struct point*);
 
+/* Checa si un punto es menor a otro con respecto a la coordenada x */
+int menor(struct point*, struct point*);
+
+/* Calcula la distancia entre dos puntos dados*/
+float distancia(struct point*, struct point*);
+
+struct double_linked_list* points_strictly_right(struct point*, struct point*, struct double_linked_list*);
+
+void print_point(struct point*);
 #endif
+																						

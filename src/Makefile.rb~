@@ -22,7 +22,7 @@
 
 #Variables de compile
 # Aqui debes agregar los objectos que programes ejemplo: [ ..., "algoruthms/heap.so", ...]
-@shared = ["points/2d_points.so","lines/lines.so""double_linked_list/double_linked_list.so","convex_hull/convex_hull.so"]
+@shared = ["points/2d_points.so","double_linked_list/double_linked_list.so",  "convex_hull/convex_hull.so", "lines/lines.so"]
 @lib_dir = "lib/"
 
 # Detecta que sistema operativo utilizas, solo soporta: 

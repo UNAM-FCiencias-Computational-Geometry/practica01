@@ -9,14 +9,17 @@
 #ifndef DOUBLE_LINKED_LIST_H_
 #define DOUBLE_LINKED_LIST_H_
 
+//#include "double_linked_list/double_linked_list.h"
+#include "lines/lines.h"
 #include "points/2d_points.h"
 
 /**
  *  |-----------|   left |-----------|  right |-----------|
  *  |           | <----- | list_item | -----> |           |
  *  |-----------|        |-----------|        |-----------|
- */
+*/
 struct list_item {
+
 	struct point* point;
 	struct list_item* left;
 	struct list_item* right;
@@ -73,4 +76,21 @@ struct point* pop_front(struct double_linked_list*);
 struct point* pick_back(struct double_linked_list*);
 struct point* pick_front(struct double_linked_list*);
 
+/** Regresa el punto más a la  derecha de una lista de puntos, sacandolo de la lista original*/
+struct point* right_point(struct double_linked_list*);
+
+/**
+ * Regresa el punto más a la izquierda de una lista de puntos, sacandolo de la lista original
+ */
+struct point* left_point(struct double_linked_list*);
+
+/** Imprime una lista de puntos */
+void print_list(struct double_linked_list*);
+
+/**
+ * Regresa el punto más alejado de la recta que se forma dados dos puntos de una lista de puntos y 
+ * lo saca de la lista 
+ */
+struct point* max_distance(struct point*, struct point*, struct double_linked_list*); 
 #endif
+

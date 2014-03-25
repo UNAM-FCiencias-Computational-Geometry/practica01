@@ -4,7 +4,10 @@
  */
 
 #include "double_linked_list/double_linked_list.h"
+#include "lines/lines.h"
+#include "points/2d_points.h"
 
+#include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -29,7 +32,6 @@ void destroy_double_linked_list(struct double_linked_list* list)
 {
 	while(!empty_list(list))
 		pop_front(list);
-
 	free(list);
 }
 
@@ -50,7 +52,7 @@ int empty_list(struct double_linked_list* list)
 	 	return list == NULL;
 	}
 }
-
+ 
 struct list_item* init_list_item()
 {
 	struct list_item* item;
@@ -147,7 +149,7 @@ struct point* pop_back(struct double_linked_list* list)
 	tmp1 = list->tail;
 	tmp2 = tmp1->left;
 	
-	struct point* point;
+ 	struct point* point;
 	
 	list->size -= 1;
 	if (list->size == 0) {
@@ -202,4 +204,116 @@ struct point* pick_front(struct double_linked_list* list)
 		return NULL;
 	else
 		return list->head->point;
+}
+
+struct point* right_point(struct double_linked_list* list){
+	
+	if(empty_list(list))
+		return NULL;
+		
+	struct double_linked_list* lista_aux = init_double_linked_list();
+	struct list_item* tmp = list->head;
+	struct point* right = tmp->point;
+	tmp = tmp->right;
+	
+	while(tmp != NULL){
+		if(menor(tmp->point,right)){
+			push_back(lista_aux, tmp->point);
+			tmp = tmp->right;
+		}else{
+			push_back(lista_aux,right);
+			right = tmp->point;
+			tmp = tmp->right;
+		}
+	}
+	
+	print_point(right);
+	
+	*list = *lista_aux;
+	free(lista_aux);
+	return right;	
+}
+ 
+struct point* left_point(struct double_linked_list* list){
+	
+	if(empty_list(list))
+		return NULL;
+	
+	struct double_linked_list* lista_aux = init_double_linked_list();
+	struct list_item* tmp = list->head;
+	struct point* left = tmp->point;
+	tmp = tmp->right;
+	
+	while(tmp != NULL){
+		if(menor(left,tmp->point)){
+			push_back(lista_aux, tmp->point);
+			tmp = tmp->right;
+		}else{
+			push_back(lista_aux, left);
+			left = tmp->point;
+			tmp = tmp->right;
+		}
+	}
+	
+	print_point(left);	
+		
+	*list = *lista_aux;
+	free(lista_aux);
+	return left;	
+}
+
+void print_list(struct double_linked_list* list){
+	if(empty_list(list)){
+		printf("[]");
+	}else{
+		struct list_item* tmp = list->head;
+		printf("[");
+		while(tmp != NULL){
+			if(tmp -> right == NULL){
+				printf("(%d,%d)", tmp->point->x,tmp->point->y);
+				tmp = tmp -> right;
+			}else{
+				printf("(%d,%d),", tmp->point->x,tmp->point->y);
+				tmp = tmp -> right;
+			}
+		}
+		printf("]\n");
+	}
+} 	
+
+struct point* max_distance(struct point* p1, struct point* p2, struct double_linked_list* list){
+	if(empty_list(list))
+		return NULL;
+	
+	printf("hola, entre a max_distance1!\n");
+	struct double_linked_list* list_aux = init_double_linked_list();
+	struct list_item* tmp = list->head;
+	struct point* max;
+	printf("hola, entre a max_distance1.1!\n");
+	struct line* line_tmp = init_line_points(p1,p2);
+	printf("hola, entre a max_distance1.2!\n");
+		
+	printf("hola, entre a max_distance2!\n");
+	max = tmp->point;
+	float distancia_max, distancia_tmp;
+	distancia_max = distance_point_to_line(line_tmp, max);
+	tmp = tmp->right;	
+	
+	printf("hola, entre a max_distance2!\n");
+	while(tmp != NULL){
+		distancia_tmp = distance_point_to_line(line_tmp, tmp->point);
+		if(distancia_tmp > distancia_max){
+			distancia_max = distancia_tmp;
+			push_back(list_aux,max);
+			max = tmp->point;
+			tmp = tmp->right;
+		}else{
+			push_back(list_aux,tmp->point);
+			tmp = tmp->right;
+		}
+	}
+	
+	*list = *list_aux;			
+	free(list_aux);
+	return max;
 }
