@@ -45,8 +45,6 @@ int menor(struct point*, struct point*);
 /* Calcula la distancia entre dos puntos dados*/
 float distancia(struct point*, struct point*);
 
-struct double_linked_list* points_strictly_right(struct point*, struct point*, struct double_linked_list*);
-
 void print_point(struct point*);
 #endif
 																						

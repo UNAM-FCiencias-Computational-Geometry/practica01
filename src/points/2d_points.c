@@ -84,24 +84,6 @@ float distancia(struct point* p1, struct point* p2){
 	return sqrt(pow((float)(p2->x - p1->x), 2.0) + pow((float)(p2->y - p1->y), 2.0));
 }
 
-struct double_linked_list* points_strictly_right(struct point* p1, struct point* p2, struct double_linked_list* list){
-	
-	struct double_linked_list* l = init_double_linked_list();
-	struct list_item* tmp = list->head;
-
-	while(tmp != NULL){
-		if(curve_orientation(p1, tmp->point, p2) == 0){
-			push_back(l,tmp->point);
-			tmp = tmp->right;
-		}else{
-			tmp = tmp->right;
-		}
-	}
-	
-	free(list);
-	
-	return l;
-}
 
 void print_point(struct point* p1){
 	printf("(%d, %d)\n",p1->x,p1->y);

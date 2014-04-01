@@ -227,8 +227,6 @@ struct point* right_point(struct double_linked_list* list){
 		}
 	}
 	
-	print_point(right);
-	
 	*list = *lista_aux;
 	free(lista_aux);
 	return right;	
@@ -254,8 +252,6 @@ struct point* left_point(struct double_linked_list* list){
 			tmp = tmp->right;
 		}
 	}
-	
-	print_point(left);	
 		
 	*list = *lista_aux;
 	free(lista_aux);
@@ -264,7 +260,7 @@ struct point* left_point(struct double_linked_list* list){
 
 void print_list(struct double_linked_list* list){
 	if(empty_list(list)){
-		printf("[]");
+		printf("[]\n");
 	}else{
 		struct list_item* tmp = list->head;
 		printf("[");
@@ -285,21 +281,16 @@ struct point* max_distance(struct point* p1, struct point* p2, struct double_lin
 	if(empty_list(list))
 		return NULL;
 	
-	printf("hola, entre a max_distance1!\n");
 	struct double_linked_list* list_aux = init_double_linked_list();
 	struct list_item* tmp = list->head;
 	struct point* max;
-	printf("hola, entre a max_distance1.1!\n");
 	struct line* line_tmp = init_line_points(p1,p2);
-	printf("hola, entre a max_distance1.2!\n");
-		
-	printf("hola, entre a max_distance2!\n");
+	
 	max = tmp->point;
 	float distancia_max, distancia_tmp;
 	distancia_max = distance_point_to_line(line_tmp, max);
 	tmp = tmp->right;	
 	
-	printf("hola, entre a max_distance2!\n");
 	while(tmp != NULL){
 		distancia_tmp = distance_point_to_line(line_tmp, tmp->point);
 		if(distancia_tmp > distancia_max){
@@ -317,3 +308,44 @@ struct point* max_distance(struct point* p1, struct point* p2, struct double_lin
 	free(list_aux);
 	return max;
 }
+
+struct double_linked_list* points_strictly_right(struct point* p1, struct point* p2, struct double_linked_list* list){
+	
+	struct double_linked_list *l, *l_aux;
+	l = init_double_linked_list();
+	l_aux = init_double_linked_list();
+	
+	struct list_item* tmp = list->head;
+
+	while(tmp != NULL){
+		if(curve_orientation(p1, tmp->point, p2) == 0){
+			push_back(l,tmp->point);
+			tmp = tmp->right;
+		}else{
+			push_back(l_aux,tmp->point);
+			tmp = tmp->right;
+		}
+	}
+	
+	*list = *l_aux;
+	free(l_aux);
+	
+	return l;
+}
+
+struct double_linked_list* append_list(struct double_linked_list* l1, struct double_linked_list* l2){
+	if(l1 == NULL)
+		return l2;
+	if(l2 == NULL)
+		return l1;
+	
+	struct double_linked_list* l = create_copy_list(l1);
+	struct list_item* tmp= l2->head;
+	
+	while(tmp != NULL){
+		push_back(l,tmp->point);
+		tmp = tmp->right;
+	}
+	return l;	
+}
+

@@ -15,14 +15,14 @@
 # Variables generales para compile y compile_c
 @cc = "gcc"
 # Aqui debes agregar los demás objectos que programes ejemplo : [ ..., "algorithms/heap.o"  ,...]
-@objs = ["points/2d_points.o","lines/lines.o","double_linked_list/double_linked_list.o", "convex_hull/convex_hull.o"]
+@objs = ["points/2d_points.o","double_linked_list/double_linked_list.o","lines/lines.o", "convex_hull/convex_hull.o"]
 @cflags = "-I."
 @debug = "-g"
 @main = "main.o"
 
 #Variables de compile
 # Aqui debes agregar los objectos que programes ejemplo: [ ..., "algoruthms/heap.so", ...]
-@shared = ["points/2d_points.so","double_linked_list/double_linked_list.so",  "convex_hull/convex_hull.so", "lines/lines.so"]
+@shared = ["points/2d_points.so","double_linked_list/double_linked_list.so","lines/lines.so","convex_hull/convex_hull.so"]
 @lib_dir = "lib/"
 
 # Detecta que sistema operativo utilizas, solo soporta: 

@@ -92,5 +92,9 @@ void print_list(struct double_linked_list*);
  * lo saca de la lista 
  */
 struct point* max_distance(struct point*, struct point*, struct double_linked_list*); 
+
+struct double_linked_list* points_strictly_right(struct point*, struct point*, struct double_linked_list*);
+
+struct double_linked_list* append_list(struct double_linked_list*, struct double_linked_list*);
 #endif
 

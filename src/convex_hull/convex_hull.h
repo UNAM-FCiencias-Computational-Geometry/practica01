@@ -25,4 +25,7 @@
  */
 struct double_linked_list* convex_hull(struct double_linked_list*);
 
+struct double_linked_list* quick_hull_1(struct point*, struct point*, struct double_linked_list*);
+
+struct double_linked_list* quick_hull_2(struct point*, struct point*, struct double_linked_list*);
 #endif

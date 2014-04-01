@@ -7,21 +7,17 @@
 
 struct line* init_line_points(struct point* p1, struct point* p2){
 	
-	printf("inicializando puntos\n");
-	
 	struct line* l = (struct line*) malloc(sizeof(struct line));
 	
 	if (l == NULL){
 		printf("Ya no hay memoria disponible: init_line_points()\n");
 		exit(EXIT_FAILURE);
 	}		
-	printf("entré a la funcion\n");
 	
 	l->a = p2->y - p1->y;
 	l->b = -1 * (p2->x - p1->x);
 	l->c = (l->a * p1->y) - (l->b * p1->y);
 
-	printf("se ha inicializado la recta con éxito\n");
 	return l;
 }
 
