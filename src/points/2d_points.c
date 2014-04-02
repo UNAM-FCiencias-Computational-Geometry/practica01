@@ -68,15 +68,11 @@ int curve_orientation(struct point* a, struct point* b, struct point* c)
 }
 
 int menor(struct point* p1, struct point* p2){
-	if(p1->x < p2->x){
-		return TRUE;
-	}else if(p1->x > p2->x){
-		return FALSE;
-	}else if(p1->y < p2->y){
-		return TRUE;
-	}else{
-		return FALSE;
-	}
+	if(p1->x == p2->x)
+		return p1->y < p2->y;
+	else
+		return p1->x < p2->x;
+	
 }
 
 float distancia(struct point* p1, struct point* p2){
