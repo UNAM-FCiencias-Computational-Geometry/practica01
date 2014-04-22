@@ -93,8 +93,12 @@ void print_list(struct double_linked_list*);
  */
 struct point* max_distance(struct point*, struct point*, struct double_linked_list*); 
 
+/**
+ * Regresa una lista de puntos que son vuelta a la derecha  con los puntos auxiliares que recibe la función
+ */
 struct double_linked_list* points_strictly_right(struct point*, struct point*, struct double_linked_list*);
 
+/** Concatena dos listas */
 struct double_linked_list* append_list(struct double_linked_list*, struct double_linked_list*);
 #endif
 

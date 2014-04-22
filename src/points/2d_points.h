@@ -45,6 +45,7 @@ int menor(struct point*, struct point*);
 /* Calcula la distancia entre dos puntos dados*/
 float distancia(struct point*, struct point*);
 
+/* Imprime en consola el valor de las coordenadas de cada punto*/
 void print_point(struct point*);
 #endif
 																						

@@ -19,6 +19,4 @@ struct line* init_line(int, int, int);
 /** calcula la distancia de un punto a una linea*/
 float distance_point_to_line(struct line*, struct point*);
 
-/**imprime en consola el contenido de una linea*/
-void print_line(struct line*);
 #endif

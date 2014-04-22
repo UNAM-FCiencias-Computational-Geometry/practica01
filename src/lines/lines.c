@@ -40,10 +40,3 @@ float distance_point_to_line(struct line* l1, struct point* p1){
 	return abs((l1->a * p1->x) + (l1->b * p1->y) + l1->c)/sqrt(pow(l1->a,2.0) + pow(l1->b,2.0));
 }
 
-void print_line(struct line* l){
-	if(l == NULL){
-		printf("");
-	}else{
-		printf("%dx + %dy + \n",l->a,l->b,l->c);
-	}
-}
